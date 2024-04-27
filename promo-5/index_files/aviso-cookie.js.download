@@ -1,0 +1,35 @@
+var cookieAviso = getCookie('aviso_cookie');
+if (cookieAviso) {
+    if (cookieAviso == 'false') {
+        $('.div-aviso-cookie').hide();
+    } else {
+        $('.div-aviso-cookie').show();
+    }
+} else {
+    $('.div-aviso-cookie').show();
+    document.cookie = "aviso_cookie=true;expires=" + (new Date(new Date().setFullYear(new Date().getFullYear() + 1))) + ";path=/";
+}
+
+$(".div-aviso-cookie button").click(function() {
+    aceitaCookies();
+});
+
+function aceitaCookies() {
+    document.cookie = "aviso_cookie=false;expires=" + (new Date(new Date().setFullYear(new Date().getFullYear() + 1))) + ";path=/";
+    $('.div-aviso-cookie').hide();
+}
+
+function getCookie(nome) {
+    var nome = nome + "=";
+    var ca = document.cookie.split(';');
+    for(var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+        }
+        if (c.indexOf(nome) == 0) {
+            return c.substring(nome.length, c.length);
+        }
+    }
+    return "";
+}
